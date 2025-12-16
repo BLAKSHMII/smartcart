@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}View Order{% endblock %}
+
+{% block content %}
+
+<h2>Order Details</h2>
+
+<h4>Order ID: {{ order.order_id }}</h4>
+<p>User ID: {{ order.user_id }}</p>
+<p>Amount: ₹{{ order.amount }}</p>
+<p>Payment Status: {{ order.payment_status }}</p>
+<p>Order Date: {{ order.created_at }}</p>
+
+<hr>
+
+<h3>Items</h3>
+<table border="1" cellpadding="10" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price (₹)</th>
+            <th>Subtotal (₹)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.product_name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.price * item.quantity }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+<a href="/admin/orders" class="btn btn-secondary">Back to Orders</a>
+
+{% endblock %}

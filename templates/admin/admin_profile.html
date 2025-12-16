@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Profile{% endblock %}
+
+{% block content %}
+<h4 class="text-center mb-3">Admin Profile</h4>
+
+<!-- Profile Image -->
+<div class="text-center mb-3">
+    {% if admin.profile_image %}
+        <img src="/static/uploads/admin_profiles/{{ admin.profile_image }}"
+             class="rounded-circle border"
+             width="120" height="120">
+    {% else %}
+        <div class="text-muted">No Profile Image</div>
+    {% endif %}
+</div>
+
+<form method="POST" action="/admin/profile" enctype="multipart/form-data">
+
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" name="name" class="form-control"
+               value="{{ admin.name }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" name="email" class="form-control"
+               value="{{ admin.email }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">New Password (optional)</label>
+        <input type="password" name="password" class="form-control"
+               placeholder="Leave blank to keep current password">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Profile Image (optional)</label>
+        <input type="file" name="profile_image" class="form-control"
+               accept="image/*">
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">
+        Update Profile
+    </button>
+</form>
+
+<div class="text-center mt-3">
+    <a href="/admin-dashboard" class="text-decoration-none">
+        ← Back to Dashboard
+    </a>
+</div>
+{% endblock %}

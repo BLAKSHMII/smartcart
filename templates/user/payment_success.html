@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Payment Success{% endblock %}
+
+{% block content %}
+<div class="container text-center">
+
+    <div class="card shadow-sm mt-4">
+        <div class="card-body">
+
+            <h4 class="text-success mb-3">✅ Payment Successful!</h4>
+
+            <p class="mb-1">
+                <strong>Payment ID:</strong> {{ payment_id }}
+            </p>
+            <p class="mb-3">
+                <strong>Order ID:</strong> {{ order_id }}
+            </p>
+
+            <a href="/user/products" class="btn btn-primary">
+                Continue Shopping
+            </a>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

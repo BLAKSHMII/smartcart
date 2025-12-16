@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}All Products{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="mb-3">All Products</h2>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="alert alert-success">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+
+    <!-- Search & Category Filter -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <form method="GET" action="/user/products" class="d-flex">
+                <input type="text" name="search" class="form-control me-2" placeholder="Search product..."
+                       value="{{ request.args.get('search', '') }}">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <form method="GET" action="/user/products" class="d-flex">
+                <select name="category" class="form-select me-2">
+                    <option value="">All Categories</option>
+                    {% for cat in categories %}
+                    <option value="{{ cat.category }}"
+                        {% if request.args.get('category') == cat.category %} selected {% endif %}>
+                        {{ cat.category }}
+                    </option>
+                    {% endfor %}
+                </select>
+                <button class="btn btn-primary" type="submit">Filter</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Product Cards -->
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="/static/uploads/product_images/{{ product.image }}" class="card-img-top p-3" 
+                     style="height:180px; object-fit:contain;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="text-muted mb-1">{{ product.category }}</p>
+                    <p class="fw-bold mb-2">₹{{ product.price }}</p>
+                    <a href="/user/product/{{ product.product_id }}" class="btn btn-primary btn-sm">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block content %}
+<div class="container text-center">
+
+    <h4 class="mb-4">Welcome, {{ user_name }} 👋</h4>
+
+    <div class="d-grid gap-3 col-6 mx-auto">
+
+        <a href="/user/products" class="btn btn-primary">
+            Browse Products
+        </a>
+
+        <a href="/user/cart" class="btn btn-outline-secondary">
+            Cart ({{ session.get('cart')|length if session.get('cart') else 0 }})
+        </a>
+
+        <a href="/user-logout" class="btn btn-danger">
+            Logout
+        </a>
+
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Products List{% endblock %}
+{% block content %}
+<h2>Products</h2>
+
+<form method="GET" class="row g-3 mb-3">
+  <div class="col-md-4">
+    <input type="text" name="search" class="form-control" placeholder="Search..." value="{{ request.args.get('search', '') }}">
+  </div>
+  <div class="col-md-4">
+    <select name="category" class="form-select">
+      <option value="">All Categories</option>
+      {% for c in categories %}
+        <option value="{{ c.category }}" {% if c.category == request.args.get('category') %}selected{% endif %}>{{ c.category }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-4">
+    <button class="btn btn-secondary">Filter</button>
+  </div>
+</form>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Price</th>
+      <th>Image</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in products %}
+    <tr>
+      <td>{{ p.name }}</td>
+      <td>{{ p.category }}</td>
+      <td>{{ p.price }}</td>
+      <td><img src="{{ url_for('static', filename='uploads/product_images/' + p.image) }}" width="50"></td>
+      <td>
+        <a href="/admin/view-item/{{ p.product_id }}" class="btn btn-info btn-sm">View</a>
+        <a href="/admin/update-item/{{ p.product_id }}" class="btn btn-warning btn-sm">Edit</a>
+        <a href="/admin/delete-item/{{ p.product_id }}" class="btn btn-danger btn-sm" onclick="return confirm('Delete this product?');">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<a href="/admin/add-item" class="btn btn-primary">Add New Product</a>
+{% endblock %}

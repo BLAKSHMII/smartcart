@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Invoice{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <!-- Header -->
+            <div class="text-center border-bottom pb-3 mb-3">
+                <h4 class="fw-bold">SmartCart Invoice</h4>
+                <p class="mb-0"><strong>Order ID:</strong> {{ order.order_id }}</p>
+                <p class="mb-0"><strong>Date:</strong> {{ order.created_at }}</p>
+            </div>
+
+            <!-- Customer Details -->
+            <div class="mb-3">
+                <h6 class="fw-bold">Customer Details</h6>
+                <p class="mb-1"><strong>User ID:</strong> {{ order.user_id }}</p>
+            </div>
+
+            <!-- Items Table -->
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for it in items %}
+                        <tr>
+                            <td>{{ it.product_name }}</td>
+                            <td>{{ it.quantity }}</td>
+                            <td>{{ it.price }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Total -->
+            <div class="text-end fw-bold fs-5">
+                Grand Total: ₹{{ order.amount }}
+            </div>
+
+        </div>
+    </div>
+
+    <div class="text-center mt-3">
+        <a href="/user/orders" class="btn btn-secondary btn-sm">
+            Back to Orders
+        </a>
+    </div>
+
+</div>
+{% endblock %}

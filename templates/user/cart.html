@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}User Cart{% endblock %}
+
+{% block content %}
+<h4 class="text-center mb-3">Your Cart</h4>
+
+{% if not cart %}
+    <div class="text-center">
+        <p class="text-muted">Your cart is empty.</p>
+        <a href="/user/products" class="btn btn-primary">Shop Now</a>
+    </div>
+{% else %}
+
+<div class="table-responsive">
+<table class="table table-bordered align-middle text-center">
+    <thead class="table-dark">
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for pid, item in cart.items() %}
+    <tr>
+        <td>
+            <img src="/static/uploads/product_images/{{ item.image }}"
+                 width="70" class="rounded">
+        </td>
+        <td>{{ item.name }}</td>
+        <td>₹{{ item.price }}</td>
+
+        <td>
+            <a href="/user/cart/decrease/{{ pid }}" class="btn btn-sm btn-outline-secondary">−</a>
+            <span class="mx-2">{{ item.quantity }}</span>
+            <a href="/user/cart/increase/{{ pid }}" class="btn btn-sm btn-outline-secondary">+</a>
+        </td>
+
+        <td>₹{{ item.price * item.quantity }}</td>
+
+        <td>
+            <a href="/user/cart/remove/{{ pid }}" class="btn btn-sm btn-danger">
+                Remove
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+<div class="text-end fw-bold mb-3">
+    Grand Total: ₹{{ grand_total }}
+</div>
+
+<div class="d-flex justify-content-between">
+    <a href="/user/products" class="btn btn-outline-primary">
+        Continue Shopping
+    </a>
+    <a href="/user/pay" class="btn btn-success">
+        Proceed to Pay
+    </a>
+</div>
+
+{% endif %}
+{% endblock %}

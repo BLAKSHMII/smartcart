@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Forgot Password{% endblock %}
+
+{% block content %}
+<h4 class="text-center mb-3">Admin Forgot Password</h4>
+
+<form method="POST">
+    <div class="mb-3">
+        <input type="email" name="email" class="form-control" placeholder="Admin Email" required>
+    </div>
+
+    <button class="btn btn-primary w-100" type="submit">Send OTP</button>
+</form>
+
+<div class="text-center mt-3">
+    <a href="/admin-login" class="text-decoration-none">Back to Login</a>
+</div>
+{% endblock %}

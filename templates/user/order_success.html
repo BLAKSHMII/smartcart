@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Order Success{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="card shadow-sm mt-4">
+        <div class="card-body text-center">
+
+            <h4 class="text-success mb-2">🎉 Your Order is Confirmed!</h4>
+            <p class="mb-3">
+                Thank you for shopping with <strong>SmartCart</strong>.
+            </p>
+
+            <!-- Order Details -->
+            <div class="text-start mb-4">
+                <p class="mb-1"><strong>Order ID:</strong> {{ order.order_id }}</p>
+                <p class="mb-1"><strong>Payment ID:</strong> {{ order.razorpay_payment_id }}</p>
+                <p class="mb-1"><strong>Amount Paid:</strong> ₹{{ order.amount }}</p>
+                <p class="mb-1"><strong>Order Date:</strong> {{ order.created_at }}</p>
+            </div>
+
+            <!-- Items Table -->
+            <div class="table-responsive mb-3">
+                <table class="table table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Product</th>
+                            <th>Qty</th>
+                            <th>Price (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for it in items %}
+                        <tr>
+                            <td>{{ it.product_name }}</td>
+                            <td>{{ it.quantity }}</td>
+                            <td>{{ it.price }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Actions -->
+            <div class="d-flex justify-content-center gap-2 mb-3">
+                <a href="/user/download-invoice/{{ order.order_id }}"
+                   class="btn btn-outline-secondary btn-sm">
+                    Download Invoice (PDF)
+                </a>
+            </div>
+
+            <div class="d-flex justify-content-center gap-2">
+                <a href="/user/products" class="btn btn-primary">
+                    Continue Shopping
+                </a>
+                <a href="/user/my-orders" class="btn btn-outline-primary">
+                    View My Orders
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}
