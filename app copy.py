@@ -15,8 +15,7 @@ from flask_mail import Mail, Message
 import mysql.connector
 import bcrypt
 import random
-import razorpay
-
+import config
 
 
 app = Flask(__name__)
@@ -41,6 +40,16 @@ def get_db_connection():
         database=config.DB_NAME
     )
     return conn
+
+from flask import Flask, render_template, request, redirect, session, flash
+from flask_mail import Mail, Message
+import mysql.connector
+import bcrypt
+import random
+import config
+
+app = Flask(__name__)
+app.secret_key = config.SECRET_KEY
 
 # ---------------- EMAIL CONFIGURATION ----------------
 app.config['MAIL_SERVER'] = config.MAIL_SERVER
@@ -1044,6 +1053,7 @@ def remove_from_cart(pid):
     flash("Item removed!", "success")
     return redirect('/user/cart')
 # -------------------razorpay-----------------------------------------------
+import razorpay
 razorpay_client = razorpay.Client(
     auth=(config.RAZORPAY_KEY_ID, config.RAZORPAY_KEY_SECRET)
 )
@@ -1276,6 +1286,9 @@ def admin_view_order(order_id):
 
 
 # ------ download-------------------
+from flask import make_response, render_template
+from utils.pdf_generator import generate_pdf
+
 # ----------------------------
 # GENERATE INVOICE PDF
 # ----------------------------
