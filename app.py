@@ -12,7 +12,6 @@ from flask import make_response, render_template
 from utils.pdf_generator import generate_pdf
 from flask import Flask, render_template, request, redirect, session, flash
 from flask_mail import Mail, Message
-import mysql.connector
 import bcrypt
 import random
 import razorpay
@@ -58,7 +57,7 @@ mail = Mail(app)
 # --------------------------------
 @app.route('/')
 def home():
-    return render_template("admin/admin_signup.html")
+    return render_template("user/user_register.html")
 # -------------------------------
 # ---------------------------------------------------------
 # ROUTE 1: ADMIN SIGNUP (SEND OTP)
